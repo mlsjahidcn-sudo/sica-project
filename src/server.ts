@@ -1,5 +1,4 @@
 import { createServer } from 'http';
-import { parse } from 'url';
 import next from 'next';
 import { WebSocketServer } from 'ws';
 import type { IncomingMessage } from 'http';
@@ -23,6 +22,7 @@ function registerWsEndpoint(path: string): WebSocketServer {
 }
 
 function handleUpgrade(req: IncomingMessage, socket: Duplex, head: Buffer) {
+  // Use WHATWG URL API instead of deprecated url.parse()
   const { pathname } = new URL(req.url!, `http://${req.headers.host}`);
   const wss = wssMap.get(pathname);
   
@@ -49,8 +49,23 @@ setupPartnerHandler(registerWsEndpoint('/ws/partner'));
 app.prepare().then(() => {
   const server = createServer(async (req, res) => {
     try {
-      const parsedUrl = parse(req.url!, true);
-      await handle(req, res, parsedUrl);
+      // Use WHATWG URL API instead of deprecated url.parse()
+      const parsedUrl = new URL(req.url!, `http://${req.headers.host}`);
+      // Build query object from searchParams
+      const query: Record<string, string | string[]> = {};
+      parsedUrl.searchParams.forEach((value, key) => {
+        const existing = query[key];
+        if (existing) {
+          query[key] = Array.isArray(existing) ? [...existing, value] : [existing, value];
+        } else {
+          query[key] = value;
+        }
+      });
+      await handle(req, res, { 
+        pathname: parsedUrl.pathname,
+        query,
+        search: parsedUrl.search,
+      } as Parameters<typeof handle>[2]);
     } catch (err) {
       console.error('Error occurred handling', req.url, err);
       res.statusCode = 500;

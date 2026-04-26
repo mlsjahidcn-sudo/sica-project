@@ -1,62 +1,28 @@
-# Active Context: Study In China Academy (SICA)
+# Active Context
 
 ## Current Work Focus
-Recent efforts have focused on:
-
-1. **Project Initialization & Environment Setup**
-   - Created `.env.local` with real Supabase, Moonshot, and Resend credentials
-   - Installed all dependencies via `pnpm install` (95 packages)
-   - TypeScript check passes with zero errors
-
-2. **Configuration Fixes**
-   - Disabled corrupting `.babelrc` (deprecated `next/babel` preset causing config corruption)
-   - Renamed `next.config.js` → `next.config.ts` to avoid esbuild CJS interop issues
-   - Dev server now runs clean without `__esModule`/`default` config warnings
-
-3. **Runtime Error Fixes**
-   - Fixed `next/image` remote hostname error for `static-data.gaokao.cn` by fixing the config loading pipeline
-   - Supabase connection verified — all API endpoints returning 200
-
-4. **Memory Bank Initialization**
-   - Creating comprehensive project documentation
+- Completed code architecture analysis and implementation of various improvements
+- Implemented unified query builder pattern in src/lib/queries/index.ts
+- Organized components into feature directories with barrel exports
+- All TypeScript compilation passes successfully
 
 ## Recent Changes
-| Change | Status | Description |
-|--------|--------|-------------|
-| `.env.local` | ✅ Created | Populated with all service credentials |
-| `pnpm install` | ✅ Complete | All dependencies resolved |
-| `pnpm ts-check` | ✅ Passed | Zero TypeScript errors |
-| `next.config.ts` | ✅ Renamed | Fixed config corruption from tsx/esbuild interop |
-| `.babelrc` | ✅ Disabled | `.babelrc.disabled` — removed deprecated Babel preset |
-| Dev server | ✅ Running | `http://localhost:5000` — all endpoints responsive |
+1. **Query Builder System**: Created unified query builder with BaseQueryBuilder abstract class and entity-specific builders (University, Program, Application, Student, Blog)
+2. **Component Organization**: Organized components into public/, dashboard/, navigation/, shared/, data/, widgets/ directories with barrel exports
+3. **Barrel Exports**: Centralized types in src/lib/types/index.ts and created component barrel exports
+4. **Documentation**: Created AUTOSAVE_HOOKS_README.md documenting useAutosave and useAutoSaveDocument hooks
+
+## Key Technical Decisions
+- Using separate ListItem types (e.g., UniversityListItem) instead of interface types to resolve TypeScript strict mode issues
+- Singleton pattern for Supabase client via getSupabaseClient()
+- WHATWG URL API for replacing deprecated url.parse()
 
 ## Next Steps
-1. Phase 2: UI consistency improvements
-2. Phase 3: Visual refresh (softer colors, reduced gradients)
-3. Phase 4: Performance optimizations
-4. Run test suite: `pnpm test:run`
-5. Consider building for production: `pnpm build:next`
+- Full runtime testing of the query builder system
+- Verify component barrel exports work correctly in actual usage
 
-## Phase 1 Complete ✅ (2026-04-26)
-| Fix | File |
-|-----|------|
-| Duplicate Account section in header mobile menu | `src/components/layout/header.tsx` |
-| Dynamic stats in logo slider | `src/components/university-logo-slider.tsx` |
-| Logo slider broken links | `src/components/university-logo-slider.tsx` |
-| Testimonials pagination logic | `src/components/testimonials-section.tsx` |
-| Error Boundary component | `src/components/error-boundary.tsx` |
-
-## Active Decisions & Considerations
-- **Babel removal**: `.babelrc` disabled but kept as `.babelrc.disabled` in case legacy compatibility is needed
-- **Dev server command**: `npx tsx src/server.ts` works on Windows; `pnpm dev` requires bash/WSL
-- **Node deprecated API**: `url.parse()` in `src/server.ts` triggers deprecation warning in Node 24 — recommend migration to WHATWG URL API
-- **Missing tables**: `partner_showcases` and `testimonials` return empty gracefully but may need to be created via migration
-
-## Important Patterns & Preferences
-- All API routes follow the pattern: `src/app/api/[resource]/route.ts`
-- Components are in `src/components/` with subdirectories for domain areas
-- UI primitives in `src/components/ui/` (shadcn managed)
-- Lib utilities in `src/lib/` with domain subdirectories
-- Supabase client initialized in `src/lib/` modules
-- TypeScript strict mode enforced
-- pnpm-only package management
+## Project Structure
+- Next.js 16 App Router with route groups
+- Supabase PostgreSQL with RLS policies
+- Singleton database client pattern
+- Organized component directories with barrel exports
