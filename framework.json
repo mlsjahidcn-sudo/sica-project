@@ -1,4 +1,4 @@
 {
-  "framework": "nextjs",
-  "服": "Node.js"
+  "framework": "nodejs",
+  "framework_version": "18"
 }

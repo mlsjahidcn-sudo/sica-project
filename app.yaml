@@ -1,11 +1,10 @@
 runtime: nodejs18
-
 build_command: npm run build
-
-start_script: node .next/standalone/server.js
-
+start_script: npx tsx src/server.ts
 static_files:
-  - public
-
+  - path: /_next/static
+    directory: .next/static
+  - path: /public
+    directory: public
 env:
   NODE_ENV: production
