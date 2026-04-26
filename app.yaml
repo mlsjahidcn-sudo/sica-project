@@ -1,0 +1,11 @@
+runtime: nodejs18
+
+build_command: npm run build
+
+start_script: node .next/standalone/server.js
+
+static_files:
+  - public
+
+env:
+  NODE_ENV: production

@@ -1,0 +1,15 @@
+{
+  "name": "web",
+  "script": "server.js",
+  "cwd": ".",
+  "instances": 1,
+  "exec_mode": "fork",
+  "env": {
+    "NODE_ENV": "production",
+    "PORT": 3000
+  },
+  "error_file": "/dev/null",
+  "out_file": "/dev/null",
+  "pid_file": "/dev/null",
+  "autorestart": true
+}

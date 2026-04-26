@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   allowedDevOrigins: ['*.dev.coze.site'],
-  // output: 'standalone', // Disabled due to Turbopack path issues
+  output: 'standalone', // Enable standalone output for Hostinger deployment
   images: {
     // Enable image optimization for better performance
     formats: ['image/webp', 'image/avif'],
