@@ -4,7 +4,7 @@ const nextConfig = {
   output: 'standalone', // Enable standalone output for Hostinger deployment
   images: {
     // Enable image optimization for better performance
-    formats: ['image/webp', 'image/avif'],
+    formats: ['image/webp', 'image/avif'] as const,
     remotePatterns: [
       {
         protocol: 'https',
