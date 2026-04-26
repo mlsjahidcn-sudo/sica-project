@@ -26,7 +26,7 @@ The following files were created/modified to help Hostinger recognize this as a 
 2. **In Hostinger hPanel:**
    - Go to **Website** → **Git**
    - Connect your GitHub repository
-   - Set branch: `Codebuddy`
+   - Set branch: `test`
    - Set build command: `npm install --legacy-peer-deps && npm run build`
    - Set start command: `node .next/standalone/server.js`
    - Set directory: `/domains/lawngreen-fox-388897.hostingersite.com/public_html`
@@ -55,7 +55,7 @@ The following files were created/modified to help Hostinger recognize this as a 
 
 3. **Pull latest changes:**
    ```bash
-   git pull origin Codebuddy
+   git pull origin test
    ```
 
 4. **Install dependencies:**
